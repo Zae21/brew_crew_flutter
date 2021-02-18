@@ -1,21 +1,20 @@
 import 'package:brew_crew/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleView;
 
-  SignIn({this.toggleView});
+  Register({this.toggleView});
 
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
 
   String email;
   String password;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +22,14 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
-        title: Text('Sign In Into Brew Cerew'),
+        title: Text('Sign Up Into Brew Cerew'),
         actions: <Widget>[
           FlatButton.icon(
             onPressed: () {
               widget.toggleView();
             },
             icon: Icon(Icons.person),
-            label: Text('Register'),
+            label: Text('Sign In'),
           )
         ],
       ),
@@ -59,7 +58,7 @@ class _SignInState extends State<SignIn> {
                     print(password);
                   },
                   color: Colors.pink[400],
-                  child: Text('Sign In',
+                  child: Text('Register',
                       style: TextStyle(
                         color: Colors.white,
                       )),
