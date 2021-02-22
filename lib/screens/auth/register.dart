@@ -13,9 +13,10 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
-  
-  String email;
-  String password;
+
+  String email = '';
+  String password = '';
+  String errorMsg = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,16 +38,27 @@ class _RegisterState extends State<Register> {
       body: Container(
           padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
           child: Form(
+            key: _formKey,
             child: Column(
               children: <Widget>[
                 SizedBox(height: 20.0),
                 TextFormField(
+                  validator: (val) {
+                    if (val.isEmpty) return 'Email tidak boleh dikosongkan.';
+                    return null;
+                  },
                   onChanged: (val) {
                     setState(() => email = val);
                   },
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
+                  validator: (val) {
+                    if (val.isEmpty) return 'Pasword tidak boleh dikosongkan.';
+                    if (val.length < 6)
+                      return 'Pasword tidak boleh kurang dari 6 karakter.';
+                    return null;
+                  },
                   obscureText: true,
                   onChanged: (val) {
                     setState(() => password = val);
@@ -55,15 +67,23 @@ class _RegisterState extends State<Register> {
                 SizedBox(height: 20.0),
                 RaisedButton(
                   onPressed: () async {
-                    print(email);
-                    print(password);
+                    if (_formKey.currentState.validate()) {
+                      dynamic result =
+                          await _auth.signUpEmailPassword(email, password);
+                      if (result == null) {
+                        setState(() => errorMsg = 'Invalid email format');
+                      }
+                    }
                   },
                   color: Colors.pink[400],
                   child: Text('Register',
                       style: TextStyle(
                         color: Colors.white,
                       )),
-                )
+                ),
+                SizedBox(height: 15.0),
+                Text(errorMsg,
+                    style: TextStyle(color: Colors.red, fontSize: 14.0))
               ],
             ),
           )),
