@@ -85,7 +85,7 @@ class _SignInState extends State<SignIn> {
                             if (result == null) {
                               setState(() {
                                 errorMsg = 'Credential not found.';
-                                isLoading = true;
+                                isLoading = false;
                               });
                             }
                           }

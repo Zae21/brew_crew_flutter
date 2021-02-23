@@ -85,7 +85,7 @@ class _RegisterState extends State<Register> {
                             if (result == null) {
                               setState(() {
                                 errorMsg = 'Invalid Email format.';
-                                isLoading = true;
+                                isLoading = false;
                               });
                             }
                           }

@@ -12,21 +12,21 @@ class Home extends StatelessWidget {
     return StreamProvider<List<Brew>>.value(
         value: DatabaseService().brews,
         child: Scaffold(
-          backgroundColor: Colors.brown[50],
-          appBar: AppBar(
-            title: Text('Brew Crew'),
-            backgroundColor: Colors.brown[300],
-            elevation: 0.0,
-            actions: <Widget>[
-              FlatButton.icon(
-                onPressed: () async {
-                  await _auth.signOut();
-                },
-                icon: Icon(Icons.person),
-                label: Text('Logout'),
-              )
-            ],
-          ),
-        ));
+            backgroundColor: Colors.brown[50],
+            appBar: AppBar(
+              title: Text('Brew Crew'),
+              backgroundColor: Colors.brown[300],
+              elevation: 0.0,
+              actions: <Widget>[
+                FlatButton.icon(
+                  onPressed: () async {
+                    await _auth.signOut();
+                  },
+                  icon: Icon(Icons.person),
+                  label: Text('Logout'),
+                )
+              ],
+            ),
+            body: BrewList()));
   }
 }
